@@ -18,6 +18,7 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-i
 allowed_origins = [
     "https://superfishy.com",
     "https://www.superfishy.com",
+    "https://something-fishy.onrender.com",
     "http://localhost:5000",
     "http://localhost:5001",
     "http://localhost:5003",
