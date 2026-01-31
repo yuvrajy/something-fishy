@@ -408,20 +408,6 @@ socket.on("game_started", (state) => {
 socket.on("game_state_update", updateGameState);
 socket.on("new_round", updateGameState);
 
-// Add socket handler for skip question (moved outside updateGameState)
-socket.on("question_skipped", (data) => {
-  const questionElem = document.getElementById("question");
-  if (questionElem) {
-    questionElem.textContent = `Question: ${data.question}`;
-  }
-  if (data.answer) {
-    const answerElem = document.getElementById("answer-section");
-    if (answerElem) {
-      answerElem.textContent = `Answer: ${data.answer}`;
-    }
-  }
-});
-
 function updateGameState(state) {
   // Find my player info
   const myPlayer = state.players[myPlayerId];
@@ -462,16 +448,6 @@ function updateGameState(state) {
     questionElem.innerHTML = `Question: <span class="font-medium">${state.question}</span>`;
     roleContainer.appendChild(questionElem);
 
-    // Add skip question button for guesser
-    if (myPlayer.role === "guesser") {
-      const skipButton = document.createElement("button");
-      skipButton.textContent = "Skip Question";
-      skipButton.className = "btn-fishy mt-4";
-      skipButton.onclick = () => {
-        socket.emit("skip_question", { room_code: roomCode });
-      };
-      roleContainer.appendChild(skipButton);
-    }
   }
 
   if (myPlayer.role !== "guesser" && state.answer) {
@@ -734,12 +710,6 @@ socket.on("game_over", (results) => {
     `;
 });
 
-// Play again in same room
-document
-  .getElementById("play-again-same-room")
-  .addEventListener("click", () => {
-    socket.emit("restart_game", { room_code: roomCode });
-  });
 
 // Back to home
 document.getElementById("back-to-home").addEventListener("click", () => {

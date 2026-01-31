@@ -20,6 +20,7 @@ allowed_origins = [
     "https://www.superfishy.com",
     "http://localhost:5000",
     "http://localhost:5001",
+    "http://localhost:5003",
     "http://127.0.0.1:5000",
     "http://127.0.0.1:5001",
     "http://127.0.0.1:5003"
