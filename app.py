@@ -1,6 +1,3 @@
-import eventlet
-eventlet.monkey_patch()
-
 from flask import Flask, jsonify, render_template, request
 from flask_socketio import SocketIO, emit, join_room, leave_room
 from flask_cors import CORS
@@ -372,7 +369,7 @@ def handle_guess(data):
             emit('game_over', final_results, to=room_code)
         else:
             # Wait for 1.5 seconds to let the animation complete
-            eventlet.sleep(1.5)
+            time.sleep(1.5)
 
             # end_round() already calls start_new_round(), so we don't need to call it again
             # The round was already ended in process_guess -> end_round()
