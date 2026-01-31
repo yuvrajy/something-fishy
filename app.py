@@ -27,6 +27,16 @@ allowed_origins = [
     "http://127.0.0.1:5003"
 ]
 
+# Add custom domains from environment variable (comma-separated)
+# Example: CUSTOM_DOMAINS="https://yourdomain.com,https://www.yourdomain.com"
+custom_domains = os.environ.get("CUSTOM_DOMAINS", "")
+if custom_domains:
+    allowed_origins.extend([domain.strip() for domain in custom_domains.split(",")])
+
+# In development, allow all origins for local network testing
+if os.environ.get("DEV_CORS") == "1":
+    allowed_origins = "*"
+
 CORS(app, resources={r"/*": {"origins": allowed_origins}})
 socketio = SocketIO(app,
                    cors_allowed_origins=allowed_origins,
