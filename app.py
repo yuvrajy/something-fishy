@@ -40,7 +40,7 @@ if os.environ.get("DEV_CORS") == "1":
 CORS(app, resources={r"/*": {"origins": allowed_origins}})
 socketio = SocketIO(app,
                    cors_allowed_origins=allowed_origins,
-                   async_mode='gevent',
+                   async_mode='eventlet',
                    ping_timeout=60,
                    ping_interval=25,
                    logger=True,
